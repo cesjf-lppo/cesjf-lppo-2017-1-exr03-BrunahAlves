@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Bruna Alves
  */
-@WebServlet(name = "ListaRegistrosServlet", urlPatterns = {"/Lista.html"})
+@WebServlet(name = "ListaRegistrosServlet", urlPatterns = {"/lista.html"})
 public class ListaRegistrosServlet extends HttpServlet {
 
     
