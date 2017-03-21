@@ -16,7 +16,7 @@
         <form method="post">
             <div><label>Nome: <input type="text" name="nome"></label></div>
             <div><label>Idade: <input type="text" name="idade"></label></div>
-            <div><label>Data de entrada: <input type="text" name="entrada"></label></div>
+            <label>Data/Hora de Entrada</label> <input type="datetime-local" name="entrada" />
             <div><input type="submit"></div>
         </form>
     </body>

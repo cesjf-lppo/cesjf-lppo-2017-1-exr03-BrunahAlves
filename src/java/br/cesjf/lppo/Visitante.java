@@ -5,6 +5,8 @@
  */
 package br.cesjf.lppo;
 
+import java.util.Date;
+
 /**
  *
  * @author Bruna Alves
@@ -13,8 +15,8 @@ public class Visitante {
     private Long id;
     private String nome;
     private int idade;
-    private String entrada;
-    private String saida;
+    private Date entrada;
+    private Date saida;
     
     public Visitante(){
     }
@@ -61,34 +63,21 @@ public class Visitante {
         this.idade = idade;
     }
 
-    /**
-     * @return the entrada
-     */
-    public String getEntrada() {
+    public Date getEntrada() {
         return entrada;
     }
 
-    /**
-     * @param entrada the entrada to set
-     */
-    public void setEntrada(String entrada) {
+    public void setEntrada(Date entrada) {
         this.entrada = entrada;
     }
 
-    /**
-     * @return the saida
-     */
-    public String getSaida() {
+    public Date getSaida() {
         return saida;
     }
 
-    /**
-     * @param saida the saida to set
-     */
-    public void setSaida(String saida) {
+    public void setSaida(Date saida) {
         this.saida = saida;
-    }
-    
+    } 
     
     
 }

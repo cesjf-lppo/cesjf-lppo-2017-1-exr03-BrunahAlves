@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,7 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ListaRegistrosServlet", urlPatterns = {"/lista.html"})
 public class ListaRegistrosServlet extends HttpServlet {
-
+    
+    private static SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     
 
     @Override
@@ -42,8 +44,8 @@ public class ListaRegistrosServlet extends HttpServlet {
                 visitante.setId(resultado.getLong("Id"));
                 visitante.setNome(resultado.getString("nome"));
                 visitante.setIdade(resultado.getInt("idade"));
-                visitante.setEntrada(resultado.getString("entrada"));
-                visitante.setSaida(resultado.getString("saida"));
+                visitante.setEntrada(resultado.getDate("entrada"));
+                visitante.setSaida(resultado.getDate("saida"));
                 visitantes.add(visitante);
             }
             

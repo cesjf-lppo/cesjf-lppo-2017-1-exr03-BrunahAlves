@@ -3,7 +3,7 @@
     Created on : 20/03/2017, 00:12:24
     Author     : Bruna Alves
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
