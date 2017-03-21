@@ -36,23 +36,23 @@ public class NovoRegistroServlet extends HttpServlet {
             Visitante visitante = new Visitante();
             visitante.setNome(request.getParameter("nome"));
             visitante.setIdade(Integer.parseInt(request.getParameter("idade")));
-            visitante.setEntrada(df.parse(request.getParameter("entrada")));
+            // visitante.setEntrada(df.parse(request.getParameter("entrada")));
 
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection conexao = DriverManager.getConnection("jdbc:derby://localhost:1527/lppo-2017-1", "usuario", "senha");
             Statement operacao = conexao.createStatement();
-            operacao.executeUpdate("INSERT INTO(nome, idade) VALUES('"
-                    + visitante.getNome() + "','"
-                    + visitante.getIdade() + "')"
-                    + visitante.getEntrada());
+            operacao.executeUpdate("INSERT INTO visitante(nome, idade) VALUES('"
+                    + visitante.getNome() + "',"
+                    + visitante.getIdade() + ")");
+                    //+ visitante.getEntrada());
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ListaRegistrosServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ListaRegistrosServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(NovoRegistroServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }// catch (ParseException ex) {
+           // Logger.getLogger(NovoRegistroServlet.class.getName()).log(Level.SEVERE, null, ex);
+       // }
         response.sendRedirect("lista.html");
     }
 
