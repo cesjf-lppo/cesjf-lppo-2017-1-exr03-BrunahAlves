@@ -29,7 +29,7 @@
                     <td>${visitante.idade}</td>
                     <td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${visitante.entrada}" /></td>
                     <td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${visitante.saida}" /></td>
-                    <td><a href="exclui.html?id=${pessoa.id}">X</a></td>
+                    <td><a href="exclui.html?id=${visitante.id}">X</a></td>
                 </tr>
             </c:forEach>
         </table>
