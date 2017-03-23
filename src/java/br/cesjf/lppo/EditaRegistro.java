@@ -34,7 +34,8 @@ public class EditaRegistro extends HttpServlet {
             if (resultado.next()) {
                 visitante = new Visitante();
                 visitante.setId(resultado.getLong("id"));
-                visitante.setNome(request.getParameter("nome"));
+                visitante.setNome(resultado.getString("nome"));
+                visitante.setIdade(resultado.getInt("idade"));
                 visitante.setEntrada(resultado.getTimestamp("entrada"));
             }
 
