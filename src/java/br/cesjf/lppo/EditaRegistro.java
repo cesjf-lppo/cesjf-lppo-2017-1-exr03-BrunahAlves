@@ -36,7 +36,7 @@ public class EditaRegistro extends HttpServlet {
                 visitante.setId(resultado.getLong("id"));
                 visitante.setNome(resultado.getString("nome"));
                 visitante.setIdade(resultado.getInt("idade"));
-                visitante.setEntrada(resultado.getTimestamp("entrada"));
+                //   visitante.setEntrada(resultado.getTimestamp("entrada"));
             }
 
         } catch (ClassNotFoundException ex) {
@@ -53,9 +53,11 @@ public class EditaRegistro extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         Visitante visitante = new Visitante();
-        Long id = Long.parseLong(request.getParameter("id"));
+        visitante.setId(Long.parseLong(request.getParameter("id")));
+        visitante.setNome(request.getParameter("nome"));
+        visitante.setIdade(Integer.parseInt(request.getParameter("Idade")));
 
         try {
             //Pegar os dados do banco
@@ -64,8 +66,8 @@ public class EditaRegistro extends HttpServlet {
             Statement operacao = conexao.createStatement();
             operacao.executeUpdate("UPDATE visitante SET nome='"
                     + visitante.getNome() + "',idade="
-                    +visitante.getIdade() +"WHERE id="
-                    +visitante.getId());
+                    + visitante.getIdade() + "WHERE id="
+                    + visitante.getId());
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ListaRegistrosServlet.class.getName()).log(Level.SEVERE, null, ex);
