@@ -57,8 +57,8 @@ public class EditaRegistro extends HttpServlet {
         Visitante visitante = new Visitante();
         visitante.setId(Long.parseLong(request.getParameter("id")));
         visitante.setNome(request.getParameter("nome"));
-        visitante.setIdade(Integer.parseInt(request.getParameter("Idade")));
-
+        visitante.setIdade(Integer.parseInt(request.getParameter("idade")));
+// pessoa.setStatus(Integer.parseInt(request.getParameter("status")));
         try {
             //Pegar os dados do banco
             Class.forName("org.apache.derby.jdbc.ClientDriver");
