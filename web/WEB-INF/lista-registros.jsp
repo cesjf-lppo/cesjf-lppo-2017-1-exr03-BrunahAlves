@@ -31,6 +31,7 @@
                     <td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${visitante.saida}" /></td>
                     <td><a href="exclui.html?id=${visitante.id}">X</a></td>
                     <td><a href="saida.html?id=${visitante.id}">Saída</a></td>
+                    <td><a href="editaform.html?id=${visitante.id}">E</a></td>
                 </tr>
             </c:forEach>
         </table>
