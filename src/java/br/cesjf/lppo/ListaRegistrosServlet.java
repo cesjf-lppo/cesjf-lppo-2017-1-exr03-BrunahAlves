@@ -49,7 +49,7 @@ public class ListaRegistrosServlet extends HttpServlet {
                 visitante.setIdade(resultado.getInt("idade"));
                 String d = df.format(resultado.getDate("entrada"));
                 visitante.setEntrada(resultado.getTimestamp("entrada"));
-                visitante.setSaida(resultado.getDate("saida"));
+                visitante.setSaida(resultado.getTimestamp("saida"));
                 visitantes.add(visitante);
             }
             
