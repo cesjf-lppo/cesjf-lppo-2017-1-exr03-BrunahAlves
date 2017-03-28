@@ -1,5 +1,6 @@
 package br.cesjf.lppo;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -7,6 +8,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -17,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "EditaFormRegistroServlet", urlPatterns = {"/editaform.html"})
 public class EditaFormRegistroServlet extends HttpServlet {
+
+    private static SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+   
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,27 +60,32 @@ public class EditaFormRegistroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Visitante visitante = new Visitante();
-        visitante.setId(Long.parseLong(request.getParameter("id")));
-        visitante.setNome(request.getParameter("nome"));
-        visitante.setIdade(Integer.parseInt(request.getParameter("idade")));
-        
-        
+
         try {
+
+            visitante.setId(Long.parseLong(request.getParameter("id")));
+            visitante.setNome(request.getParameter("nome"));
+            visitante.setIdade(Integer.parseInt(request.getParameter("idade")));
+           visitante.setEntrada(df.parse(request.getParameter("entrada")));
+//            visitante.setEntrada(df.parse(request.getParameter("entrada")));
+  //          visitante.setSaida(df.parse(request.getParameter("saida")));
             //Pegar os dados do banco
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection conexao = DriverManager.getConnection("jdbc:derby://localhost:1527/lppo-2017-1", "usuario", "senha");
             Statement operacao = conexao.createStatement();
             operacao.executeUpdate("UPDATE visitante SET nome='"
-                    + visitante.getNome() + "', idade= "
-                    + visitante.getIdade() + ",entrada="
-                    + visitante.getEntrada() + ", saida= "
-                    +visitante.getSaida() +    "WHERE id="
+                    + visitante.getNome() + "',idade="
+                    + visitante.getIdade() + ",entrada='"
+                    + visitante.getEntrada() + "', saida='"
+                    + visitante.getSaida() + "' WHERE id="
                     + visitante.getId());
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ListaRegistrosServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ListaRegistrosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(EditaFormRegistroServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         response.sendRedirect("lista.html"); //redirecionar para o servlet ListaRegistrosServlet
