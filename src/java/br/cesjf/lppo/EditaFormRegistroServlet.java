@@ -4,12 +4,15 @@ import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -21,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "EditaFormRegistroServlet", urlPatterns = {"/editaform.html"})
 public class EditaFormRegistroServlet extends HttpServlet {
 
-    private static SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
    
 
     @Override
@@ -32,11 +35,14 @@ public class EditaFormRegistroServlet extends HttpServlet {
         Long id = Long.parseLong(request.getParameter("id"));
 
         try {
+            Calendar c = Calendar.getInstance();
+
             //Pegar os dados do banco
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection conexao = DriverManager.getConnection("jdbc:derby://localhost:1527/lppo-2017-1", "usuario", "senha");
             Statement operacao = conexao.createStatement();
             ResultSet resultado = operacao.executeQuery("SELECT * FROM visitante WHERE id=" + id);
+        
             if (resultado.next()) {
                 visitante = new Visitante();
                 visitante.setId(resultado.getLong("id"));
@@ -62,23 +68,25 @@ public class EditaFormRegistroServlet extends HttpServlet {
         Visitante visitante = new Visitante();
 
         try {
-
+            
             visitante.setId(Long.parseLong(request.getParameter("id")));
             visitante.setNome(request.getParameter("nome"));
             visitante.setIdade(Integer.parseInt(request.getParameter("idade")));
            visitante.setEntrada(df.parse(request.getParameter("entrada")));
-//            visitante.setEntrada(df.parse(request.getParameter("entrada")));
+           visitante.setSaida(df.parse(request.getParameter("saida")));
   //          visitante.setSaida(df.parse(request.getParameter("saida")));
             //Pegar os dados do banco
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection conexao = DriverManager.getConnection("jdbc:derby://localhost:1527/lppo-2017-1", "usuario", "senha");
             Statement operacao = conexao.createStatement();
-            operacao.executeUpdate("UPDATE visitante SET nome='"
+            String Query = "UPDATE visitante SET nome='"
                     + visitante.getNome() + "',idade="
                     + visitante.getIdade() + ",entrada='"
                     + visitante.getEntrada() + "', saida='"
                     + visitante.getSaida() + "' WHERE id="
-                    + visitante.getId());
+                    + visitante.getId();
+            System.out.println(Query);
+            operacao.executeUpdate(Query);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ListaRegistrosServlet.class.getName()).log(Level.SEVERE, null, ex);
