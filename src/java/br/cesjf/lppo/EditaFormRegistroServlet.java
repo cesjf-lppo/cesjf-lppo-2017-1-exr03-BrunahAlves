@@ -82,8 +82,8 @@ public class EditaFormRegistroServlet extends HttpServlet {
             String Query = "UPDATE visitante SET nome='"
                     + visitante.getNome() + "',idade="
                     + visitante.getIdade() + ",entrada='"
-                    + visitante.getEntrada() + "', saida='"
-                    + visitante.getSaida() + "' WHERE id="
+                    + df.format(visitante.getEntrada()) + "', saida='"
+                    + df.format(visitante.getSaida()) + "' WHERE id="
                     + visitante.getId();
             System.out.println(Query);
             operacao.executeUpdate(Query);
